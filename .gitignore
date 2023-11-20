@@ -1,0 +1,7 @@
+.ipynb*
+*cifar*
+*MNIST*
+*logs*
+flowers
+*.ckpt
+lecture9/last_only_weights

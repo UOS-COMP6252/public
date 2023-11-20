@@ -1,0 +1,81 @@
+Suppose that a robot can make discrete step sizes in the set {s1,s2,...} 
+and it needs to walk a distance d. Give an algorithm for the robot 
+to travel distance d using the minimum number of steps
+
+Answer: To travel a distance d using the minimum number of steps, the robot can use the following algorithm:
+
+Sort the set of step sizes {s1, s2, …} in descending order.
+Initialize a variable i to 1.
+Initialize a variable n to 0.
+While d > 0: a. If d >= si, then subtract si from d and add 1 to n. b. Otherwise, increment i.
+Return n.
+This algorithm works by choosing the largest step size that is less than or equal to
+ the remaining distance d at each step. By choosing the largest step size first, 
+ the algorithm minimizes the number of steps needed to travel the distance d.
+
+Question: given a set of bricks with variety of heights, with possible duplicates, 
+you need to stack a subset of the bricks on top of each other to reach a given height H.
+ Give me an algorithm that minimizes the number of bricks
+
+ Answer: To minimize the number of bricks required to reach a given height H, 
+ we can use dynamic programming. We can create an array dp of size H+1 
+ where dp[i] represents the minimum number of bricks required to reach the height i. 
+ We can initialize dp[0] to 0 and all other elements to infinity. 
+ We can then iterate over the bricks and for each brick j, we can update the dp array as follows:
+
+for j in bricks:
+    for i in range(j, H+1):
+        dp[i] = min(dp[i], dp[i-j]+1)
+The time complexity of this algorithm is O(H * n) where n is the number of bricks.
+
+
+question: The UK coin denomination system 1p,2p,5p,10p,20p,50p,1£,2£ is said to be canonical
+ because given a monetary amount K, one can find the minimum number of coins that add up to K 
+ by following a greedy strategy: always choose the largest coin smaller or equal to the remaining amount.
+  For example 9p=5p+2p+2p. But if one includes a 25p coin, the greedy strategy 
+  no longer works since for K=40 greedy would need 3 coins (25+10+5) whereas 
+  the minimum is 2 (20+20). Given an integer amount K and 
+  an array v representing the denomination system (v=[1,2,5,10,20,50,100,200] for UK coins), 
+  devise an efficient algorithm that finds the minimum number of coins that 
+  add up to K for any type of denomination. What is the time complexity of your algorithm?
+
+
+  Answer: This is an interesting problem. The greedy algorithm works for the UK coin denomination system 
+  because the coins are in a canonical order. However, if we add a 25p coin, 
+  the greedy algorithm no longer works.
+
+To solve this problem, we can use dynamic programming. 
+We can create an array dp of size K+1 where dp[i] represents the minimum number of coins
+ required to make the amount i. We can initialize dp[0] to 0 and all other elements to infinity. 
+ We can then iterate over the denomination array v and for each coin j in v, 
+ we can update the dp array as follows:
+
+for j in v:
+    for i in range(j, K+1):
+        dp[i] = min(dp[i], dp[i-j]+1)
+The time complexity of this algorithm is O(K * n) where n is the length of the denomination array v.
+
+
+Question: in the above problem you did not take into account that the robot can use the same step size more than once
+Answer: none
+output:
+Searching for: robot walk distance d minimum steps same step size
+
+Searching for: robot walk distance d minimum steps same step size
+
+Searching for: robot walk distance d minimum steps same step size algorithm
+
+Searching for: robot walk distance d minimum steps same step size algorithm
+
+Searching for: robot walk distance d minimum steps same step size algorithm same step size multiple times
+
+Searching for: robot walk distance d minimum steps same step size algorithm same step size multiple times
+
+Searching for: robot walk distance d minimum steps same step size algorithm same step size multiple times
+
+Searching for: robot walk distance d minimum steps same step size algorithm same step size multiple times
+
+Searching for: robot walk distance d minimum steps same step size algorithm same step size multiple times
+
+Searching for: robot walk distance d minimum steps same step size algorithm same step size multiple times
+
