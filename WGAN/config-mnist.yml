@@ -1,0 +1,40 @@
+name: MNIST-WGAN-GP
+seed: 42
+device: cuda
+
+data_dir: "./"
+z_dim: 128
+imsize: 28
+img_ch: 1
+## gradient penalty coefficient
+w_gp: 10
+# number of iterations of the discriminator per generator iteration
+d_iter_per_g: 5
+
+# learning rate for generator (g) and discriminator (d)
+lr:
+  g: 1.0e-4
+  d: 1.0e-4
+
+batch_size: 256
+#g_norm_type: BatchNorm2d
+# comment out if you don't want to use any normalization
+g_norm_type: BatchNorm2d
+d_norm_type: GroupNorm
+g_final_activation: "tanh"
+#d_final_activation: "sigmoid"
+epochs: 500
+# save generated images every save_img_freq epochs
+save_image_freq: 50
+# save model every save_model_freq epochs
+save_model_freq: 100
+# saved weights directory
+weights_dir: chkpt-mnist
+# saved images directory
+images_dir: images-mnist
+comet_workspace: wgan
+comet_project: wgan-gp
+resume: False
+
+
+
