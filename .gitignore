@@ -5,3 +5,4 @@
 flowers
 *.ckpt
 lecture9/last_only_weights
+__pycache__
