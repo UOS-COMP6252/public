@@ -37,9 +37,11 @@ class WGAN_GP():
         self.set_optimizers()
 
     def initialize(self):
+        # if we're resuming training, load the weights of the last epoch
+        # otherwise, initialize them
+
         dir_list=os.listdir(self.cfg.weights_dir)
     
-            
         if self.cfg.resume and  dir_list:
             gen_files=[f for f in dir_list if f.startswith("gen")]
             dis_files=[f for f in dir_list if f.startswith("dis")]

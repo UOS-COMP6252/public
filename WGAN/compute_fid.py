@@ -19,10 +19,12 @@ from matplotlib import pyplot as plt
 
 parser = ArgumentParser(formatter_class=ArgumentDefaultsHelpFormatter)
 parser.add_argument("--weights-path", type=str, help="weights path")
+parser.add_argument("--device",choices=["cpu","cuda"],default="cpu",help="device to run the model on")
+parser.add_argument("--num-sample-epochs",type=int,default=10,help="number of epochs to sample from")    
 args=parser.parse_args()
-
+print(args)
 cfg_path = "config.yml"
-with open(cfg_path, "r") as f:
+with open(cfg_path, "r") as f: 
     print(f"Loading config file: {cfg_path}")
     cfg = yaml.safe_load(f)
 cfg = DefaultMunch.fromDict(cfg)
@@ -34,8 +36,12 @@ cfg = DefaultMunch.fromDict(cfg)
 generator=Generator(cfg.imsize,cfg.img_ch,cfg.zdim,
                                  norm_type=cfg.norm_type.g,
                                  final_activation=cfg.final_activation.g)
-dir_list=os.listdir(cfg.weights_dir)
 
+    
+device = torch.device(args.device)    
+generator.to(device)
+dir_list=os.listdir(cfg.weights_dir)
+# if the weights path is not specified, load the weights of the last epoch
 if args.weights_path is None:
 
     if dir_list:# PIL expects the image to be of shape (H,W,C)
@@ -54,9 +60,6 @@ else:
     generator.load_state_dict(torch.load(args.weights_path))
     print(f"loaded weights from {args.weights_path}")
 
-    
-cfg.device = torch.device("cpu")    
-generator.to(cfg.device)
 generator.eval()
 
 
@@ -72,11 +75,7 @@ transforms = vt.Compose([vt.ToTensor(),vt.Resize((cfg.imsize, cfg.imsize),antial
 dataset = ImageFolder(
     root=cfg.data_dir, transform=transforms
 )
-def recover_image(tensor):
-        tensor=tensor.detach().cpu().numpy().transpose(1, 2,0)*255
-        
-        return Image.fromarray(tensor.astype(np.uint8))
-    
+
 dataloader = DataLoader(
     dataset,
     batch_size=cfg.batch_size,
@@ -85,11 +84,11 @@ dataloader = DataLoader(
     drop_last=True,
 )
 itr=iter(dataloader)
-fid=FrechetInceptionDistance(feature=2048,normalize=True)
+fid=FrechetInceptionDistance(feature=2048,normalize=True).to(device)
 #efid=metrics.FrechetInceptionDistance()
-for i in tqdm(range(cfg.num_sample_epochs)):
-         real_images=next(itr)[0].float().to(cfg.device)
-         noise = random_sample(cfg.batch_size,cfg.zdim,cfg.device)
+for i in tqdm(range(args.num_sample_epochs)):
+         real_images=next(itr)[0].float().to(device)
+         noise = random_sample(cfg.batch_size,cfg.zdim,device)
          fake_images = generator(noise)
          norm(fake_images)
          norm(real_images)

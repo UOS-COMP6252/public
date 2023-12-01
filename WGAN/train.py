@@ -54,6 +54,7 @@ experiment = comet_ml.Experiment(project_name=cfg.comet_project, workspace=cfg.c
                                          auto_metric_logging=False, auto_output_logging=False)
 #experiment.set_name(cfg.experiment_name)
 experiment.log_parameters(cfg)
+experiment.log_parameter("starting epoch",start_epoch)
 
 
 for epoch in loop:

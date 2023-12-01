@@ -32,9 +32,9 @@ class Generator(nn.Module):
         out_ch=3,zdim=100,norm_type="BatchNorm2d",final_activation=None
     ):
         super().__init__()
-        # self.nf_g = nf_g
-        # self.z_dim = z_dim
-        # self.out_ch = out_ch
+        # typically image size is 64x64 so nf_g=2*64=128
+        # so the first layer of the generator produces 8*128=1024 channels
+        # from experience nf_g=img_size gives larger fid scores (lower quality images??)
         nf_g=2*img_size
         self.final_activation=None if final_activation is None else getattr(torch,final_activation)
 
