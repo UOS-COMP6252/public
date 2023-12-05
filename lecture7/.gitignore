@@ -1,0 +1,6 @@
+flowers*
+flower_photos*
+!figs/*.png
+*.zip
+*.png
+
