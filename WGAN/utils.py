@@ -25,7 +25,7 @@ def init_weight(m):
         m.weight.data.fill_(1)
         if m.bias.data is not None:
             m.bias.data.zero_()
-def recover_image(self,img):
+def recover_image(img):
         # PIL expects the image to be of shape (H,W,C)
         # in PyTorch it's (C,H,W)
 
