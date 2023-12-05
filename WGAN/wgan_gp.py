@@ -7,7 +7,7 @@ from collections import defaultdict
 import os
 from PIL import Image
 import numpy as np
-from networks import Generator,Discriminator
+from dcgan import Generator,Discriminator
 from utils import init_weight,random_sample,norm
 from torchvision.utils import make_grid
 from torchmetrics.image.fid import FrechetInceptionDistance

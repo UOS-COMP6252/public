@@ -1,5 +1,5 @@
 import torch
-from networks import Generator
+from dcgan import Generator
 from utils import random_sample
 import yaml
 from munch import DefaultMunch
