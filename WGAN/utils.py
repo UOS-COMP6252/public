@@ -2,7 +2,7 @@
 #from munch import DefaultMunch
 import torch
 import torch.nn as nn
-
+from PIL import Image
 def norm(img):
             low=float(img.min())
             high=float(img.max())
@@ -25,3 +25,9 @@ def init_weight(m):
         m.weight.data.fill_(1)
         if m.bias.data is not None:
             m.bias.data.zero_()
+def recover_image(self,img):
+        # PIL expects the image to be of shape (H,W,C)
+        # in PyTorch it's (C,H,W)
+
+        img=img.cpu().numpy().transpose(1, 2,0)*255
+        return Image.fromarray(img.astype(np.uint8))

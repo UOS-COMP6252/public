@@ -8,7 +8,7 @@ import os
 from PIL import Image
 import numpy as np
 from dcgan import Generator,Discriminator
-from utils import init_weight,random_sample,norm
+from utils import init_weight,random_sample,norm,recover_image
 from torchvision.utils import make_grid
 from torchmetrics.image.fid import FrechetInceptionDistance
 
@@ -147,16 +147,11 @@ class WGAN_GP():
     
         fake_images = self.generate_images(nsamples=nsamples)
         grid = make_grid(fake_images, nrow=4, normalize=True)
-        img=self.recover_image(grid)
+        img=recover_image(grid)
         img.save(os.path.join(self.cfg.images_dir,f"sample_{epoch}.png"))
         return img
     
-    def recover_image(self,img):
-        # PIL expects the image to be of shape (H,W,C)
-        # in PyTorch it's (C,H,W)
-
-        img=img.cpu().numpy().transpose(1, 2,0)*255
-        return Image.fromarray(img.astype(np.uint8))
+    
     
     def save_model(self,epoch):
         # if the directory doesn't exist, create it
