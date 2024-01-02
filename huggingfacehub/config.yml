@@ -1,0 +1,52 @@
+name: WGANGP_generator
+
+seed: 42
+device: cuda
+
+data_dir: /home/user/PyTorch-Lightning-GAN/GAN/celeba 
+
+zdim: 128
+imsize: 64
+img_ch: 3
+## gradient penalty coefficient
+w_gp: 10
+# number of iterations of the discriminator per generator iteration
+d_iter_per_g: 5
+
+# learning rate for generator (g) and discriminator (d)
+lr:
+  g: 1.0e-4
+  d: 1.0e-4
+
+batch_size: 256
+num_workers: 4
+norm_type:
+  g: GroupNorm
+  d: GroupNorm
+
+  #g: BatchNorm2d
+  #d: BatchNorm2d
+final_activation: 
+  g: "tanh"
+# if True use fabric to with bf16 precision. Typically 20% faster
+use_fabric: False
+# if True resume training from the latest checkpoint
+resume: False
+epochs: 500
+# save generated images every save_img_freq epochs
+save_image_freq: 50
+# save model every save_model_freq epochs
+save_model_freq: 100
+# saved weights directory
+weights_dir: chkpt
+# directory where a sample grid of images will be saved
+images_dir: images
+comet_workspace: wgan
+comet_project: wgan-gp
+# directory where samples from generate_images.py will be saved
+samples_dir: samples
+# number of epoch to run to generate samples
+# used by generate_images.py
+num_sample_epochs: 20
+
+
