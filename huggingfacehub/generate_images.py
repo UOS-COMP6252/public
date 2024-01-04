@@ -5,7 +5,7 @@ from PIL import Image
 import numpy as np
 import numpy as np
 from torchvision.utils import make_grid
-
+from utils import norm,recover_image
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
 parser=ArgumentParser()
 parser.add_argument('-s','--separate',action='store_true')
@@ -21,15 +21,6 @@ if args.rows>args.count or args.count%args.rows!=0:
 print(args.separate,args.count,args.rows)
 #exit()
 
-def norm(img):
-            low=float(img.min())
-            high=float(img.max())
-            img.sub_(low).div_(max(high - low, 1e-5))
-
-def recover_image(tensor):
-        tensor=tensor.cpu().numpy().transpose(1, 2,0)*255
-        
-        return Image.fromarray(tensor.astype(np.uint8))
 dir_name="samples"
 if not os.path.exists(dir_name):
     os.mkdir(dir_name)    
