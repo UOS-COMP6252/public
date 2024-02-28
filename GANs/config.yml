@@ -8,7 +8,7 @@ batch_size: 128
 zdim: 100
 img_size: 64
 img_ch: 3
-epochs: 10
+epochs: 50
 workers: 4
 # number of iterations of the discriminator per generator iteration
 d_iter_per_g: 1
