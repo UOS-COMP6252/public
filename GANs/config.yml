@@ -21,7 +21,7 @@ lr:
 g_norm_type: BatchNorm2d
 d_norm_type: BatchNorm2d
 g_final_activation: "tanh"
-d_final_activation: "sigmoid"
+#d_final_activation: "sigmoid"
 
 
 
